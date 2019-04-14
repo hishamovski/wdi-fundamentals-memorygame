@@ -1,3 +1,4 @@
+
 var cards = [
 {
 rank: "queen",
@@ -21,12 +22,12 @@ cardImage: "images/king-of-diamonds.png",
 }
 ];
 
-
-
 var cardInPlay = [];
 
-var checkForMatch = function(){
+var checkForMatch = function(id){
 
+//this.setAttribute("src", cards[0].cardImage);
+document.getElementsByTagName('img')[id].setAttribute('src', cards[id].cardImage);
 if(cardInPlay.length === 2){
 
 	if (cardInPlay[0] === cardInPlay[1]) {
@@ -38,17 +39,79 @@ if(cardInPlay.length === 2){
 }
 }
 
-var flipCard = function (cardId){
+var flipCard = function (){
 
-console.log("user flipped " + cards[cardId].rank);
-console.log(cards[cardId].cardImage);
-console.log(cards[cardId].suit);
 
-cardInPlay.push(cards[cardId].rank);
+console.log("user flipped " + cards[this.getAttribute('data-id')].rank);
+console.log(cards[this.getAttribute('data-id')].cardImage);
+console.log(cards[this.getAttribute('data-id')].suit);
 
-checkForMatch();
+cardInPlay.push(cards[this.getAttribute('data-id')].rank);
+
+var id = this.getAttribute('data-id')
+checkForMatch(id);
 }
 
-flipCard(2);
-flipCard(1);
+
+
+var createBoard = function(){
+
+	for (var i = 0; i < cards.length; i++) {
+
+		var newListItem = document.createElement('img');
+		newListItem.setAttribute('src', "images/back.png");
+		newListItem.setAttribute('data-id', i);
+		document.getElementById('game-board').appendChild(newListItem);
+		document.getElementsByTagName('img')[i].addEventListener('click', flipCard);
+
+	}
+
+	
+}
+
+
+createBoard();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
